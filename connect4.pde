@@ -1,8 +1,7 @@
 // Olivia Timmermann
 // Programming II (Wolfe)
 // A connect-4 game. 
-// themed berries! 
-// note: rows and columns (just the names) are switched b/c i mixed up the defs
+// themed minecraft glowberries and cherries! 
 
 int player1moves = 0; //number of turns, used to check for a total of 42 (tie)
 int player2moves = 0;
