@@ -3,6 +3,8 @@
 // A connect-4 game. 
 // themed minecraft glowberries and cherries! 
 
+import processing.sound.*; //for the music - library
+
 int player1moves = 0; //number of turns, used to check for a total of 42 (tie)
 int player2moves = 0;
 
@@ -13,6 +15,8 @@ boolean player1turn = false; //booleans for each player turn, start false
 boolean player2turn = false;
 
 boolean gameCurrently = false;
+
+boolean musicPlayed = false;
 
   int gridHeight = 6; //these variables can be changed to have 
   int gridWidth = 7; //different sized grids
@@ -25,6 +29,7 @@ PImage p1win;
 PImage p2win;
 PImage tieGame;
 PFont textFont; //define font (Perpetua)
+SoundFile sound; //bring in music file
 
 Grid grid; //instantiate the grid, score classes
 Score score;
@@ -37,6 +42,7 @@ void setup() {
   tieGame = loadImage("tiegamec4.png");
   
   textFont = createFont("Perpetua", 60); //create a new font
+
   
   cherryberries.resize(100, 100); //resize the markers
   pixelberries.resize(100, 100);
@@ -52,6 +58,14 @@ void setup() {
   
   score = new Score(); //
   score.scoreReset(); //resets the score at the end of each 
+  
+  if (!musicPlayed) {
+    sound = new SoundFile(this, "Creator.mp3"); //import music
+    sound.jump(12);
+    sound.loop();
+    musicPlayed = true;
+  }
+  
 }
 
 void draw() { //nessecary for mousePressed to run
@@ -60,7 +74,7 @@ void draw() { //nessecary for mousePressed to run
 
 public void mousePressed() { //all functions that require mouse clicking
     if (mouseX > 1000 && mouseX < 1200 && mouseY > 550 && mouseY < 650) { //within the confines of the start button
-      println("start game"); 
+      println("start game");      
       setup(); //for restarts
       fill(#FF93B3);
       stroke(#FFFFFF);
