@@ -2,6 +2,7 @@
 // Programming II (Wolfe)
 // A connect-4 game. 
 // themed berries! 
+// note: rows and columns (just the names) are switched b/c i mixed up the defs
 
 int player1moves = 0; //number of turns, used to check for a total of 42 (tie)
 int player2moves = 0;
@@ -32,9 +33,9 @@ Score score;
 void setup() {
   cherryberries = loadImage("cherryberries.png");
   pixelberries = loadImage("pixelberries.png");
-  p1win = loadImage("p1win.png");
-  p2win = loadImage("p2win.png");
-  tieGame = loadImage("tiegame.png");
+  p1win = loadImage("p1winc4.png");
+  p2win = loadImage("p2winc4.png");
+  tieGame = loadImage("tiegamec4.png");
   
   textFont = createFont("Perpetua", 60); //create a new font
   
@@ -60,12 +61,12 @@ void draw() { //nessecary for mousePressed to run
 
 public void mousePressed() { //all functions that require mouse clicking
     if (mouseX > 1000 && mouseX < 1200 && mouseY > 550 && mouseY < 650) { //within the confines of the start button
-      println("start game"); //1000, 550, 200, 100
+      println("start game"); 
       setup(); //for restarts
       fill(#FF93B3);
       stroke(#FFFFFF);
       rect(1000, 550, 200, 100); //start button
-      if (player1turn) { //prints the output of our earlier randomizer
+      if (player1turn) { //shows the output of our earlier randomizer
         text("Player 1 (cherries)", 1010, 780);
       } else if (player2turn) {
         text("Player 2 (glowberries)", 1010, 780);
@@ -73,7 +74,7 @@ public void mousePressed() { //all functions that require mouse clicking
       gameCurrently = true; //allows players to place on board
     }
     
-    if (mouseX < gridWidthPoints && mouseY < 150 && gameCurrently) { //checks if there is a current game, and if it is within the board
+    if (mouseX < gridWidthPoints && mouseY < 100 && gameCurrently) { //checks if there is a current game, and if it is within the board
         score.playGame();
     }
   }
