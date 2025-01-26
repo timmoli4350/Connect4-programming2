@@ -4,7 +4,7 @@ class Score { // scoring class, array. prints to console to check for errors
 
   int [][] score = new int[6][7]; //create our array (3x3)
 
-  int total = 0; // total moves made, = 42 is a tie
+  int total = 0; // total added
   
   void scoreReset(){ //resets the score, called at start of games
     int row = 0; // row: int of which row the mousePressed is in
@@ -21,8 +21,7 @@ class Score { // scoring class, array. prints to console to check for errors
     
   public void playGame() { //runs all of our checker functions
     isEmptySquare(checkCol());
-    println("emptysquare comp"); //so it does leave our placement thing, meaning problem is in matrix
-    //checkAll();
+    checkAll();
   }
   //---------------------------------------
   public int checkCol() { //returns the mousePressed col as an int
@@ -34,15 +33,11 @@ class Score { // scoring class, array. prints to console to check for errors
   }
   
   public void isEmptySquare(int column) { //can we place here? to avoid overlaps
-    println(checkCol()); //this is updating
-    println(checkRow());
     
     for (int rIndex = gridHeight-1; rIndex >= 0; rIndex--) {
       if (score[rIndex][column] == 0) {
         
         if (player1turn) { //if we can place here, define the array place as a "1", switch turns, place image.
-              println("new" + checkCol()); //this is updating
-              println(rIndex);
           
           image(cherryberries, checkCol() * 135 + 25, rIndex * 135 + 120);
        
@@ -73,17 +68,30 @@ class Score { // scoring class, array. prints to console to check for errors
     }
   }
   
-  /*
+  
   public void checkAll() { //loops through all parts then calls isWinner 
     //rows
-    for (int row = 0; row < score.length; row++) { //iterates through all rows, adding each up
-      total = 0; //reset between rows
-      for (int col = 0; col < score[0].length; col++) {
-        total += score[row][col];
-        isWinner();
+    for (int cIndex = 0; cIndex < gridWidth - 4; cIndex++) {
+      for (int rIndex = 0; rIndex < gridHeight; rIndex++) {
+        total = 0;
+        for (int fourIndex = 0; fourIndex < 4; fourIndex++) {  
+          total += score[rIndex][cIndex + fourIndex];
+          isWinner();
+        }
       }
     }
-      
+    
+    for (int cIndex = 0; cIndex < gridWidth; cIndex++) {
+      for (int rIndex = 0; rIndex < gridHeight-3; rIndex++) {
+        total = 0;
+        for (int fourIndex = 0; fourIndex < 4; fourIndex++) {  
+          total += score[rIndex + fourIndex][cIndex];
+          isWinner();
+        }
+      }
+    }
+    
+    /*
      //columns
      for (int col = 0; col < score[0].length; col++) { //iterates through all columns, adding each up
       total = 0; //reset between columns
@@ -101,6 +109,7 @@ class Score { // scoring class, array. prints to console to check for errors
     }
     isWinner(); //called after the loop as it only runs once
     
+    
     //diagonal: LEFT TO RIGHT
     total = 0;
     for (int row = 0; row < score.length; row++) {
@@ -108,12 +117,16 @@ class Score { // scoring class, array. prints to console to check for errors
     }
     isWinner(); //called after the loop as it only runs once
     
-    if (player1moves + player2moves == 9) { //after checking all of the above, if there were 9 moves and no result then we tie
+    if (player1moves + player2moves == 42) { //after checking all of the above, if there were 9 moves and no result then we tie
       tieGame();
     }
   }
   */
+}
+
+
   public void isWinner() { //adds up parts of the loops
+  
     if (total == 4) { //for 1 + 1 + 1 + 1 = 4
       player1Wins();
       
@@ -125,21 +138,21 @@ class Score { // scoring class, array. prints to console to check for errors
   
   public void player1Wins() { //spawn the image for a p1win, play again function
     println("player 1 (bows) wins!");
-    image(p1win, 200, 200);
+    image(p1win, 200, 225);
     player1totalWon++;
     playAgain();
   }
   
   public void player2Wins() { //spawn the image for a p2win, play again function
     println("player 2 (hearts) wins!");
-    image(p2win, 200, 200);
+    image(p2win, 200, 225);
     player2totalWon++;
     playAgain();
   }
   
   public void tieGame() { //spawn the image for a tie, play again function
     println("tie game!");
-    image(tieGame, 200, 200);
+    image(tieGame, 200, 225);
     playAgain();
   }
   
