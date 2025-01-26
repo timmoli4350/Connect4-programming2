@@ -1,14 +1,17 @@
+//Olivia Timmermann
+
 class Score { // scoring class, array. prints to console to check for errors 
 
   int [][] score = new int[6][7]; //create our array (3x3)
-  
-  int row = 0; // row: int of which row the mousePressed is in
-  int col = 0; // col: see above, col instead
+
   int total = 0; // total moves made, = 42 is a tie
   
-  public void scoreReset(){ //resets the score, called at start of games
-    for (int row = 0; row < gridWidth; row++) { //iterates through each row
-      for (int col = 0; col < gridHeight; col++) { //iterates through each column of each row
+  void scoreReset(){ //resets the score, called at start of games
+    int row = 0; // row: int of which row the mousePressed is in
+    int col = 0; // col: see above, col instead
+    
+    for (int r = 0; r < gridWidth; r++) { //iterates through each row
+      for (int c = 0; c < gridHeight; c++) { //iterates through each column of each row
         score[row][col] = 0; //equates current place to 0
     }
    }
@@ -17,47 +20,60 @@ class Score { // scoring class, array. prints to console to check for errors
   }
     
   public void playGame() { //runs all of our checker functions
-    checkRow();
-    checkCol();
-    isEmptySquare();
-    checkAll();
+    isEmptySquare(checkCol());
+    println("emptysquare comp"); //so it does leave our placement thing, meaning problem is in matrix
+    //checkAll();
   }
   //---------------------------------------
-  public void checkRow() { //returns the mousePressed row as an int
-    row = mouseX/150;
+  public int checkCol() { //returns the mousePressed col as an int
+    return mouseX/135;
   }
   
-  public void checkCol() { //returns the mousePressed column as an int
-    col = mouseY/150;
+  public int checkRow() { //returns the mousePressed row as an int
+    return mouseY/135;
   }
   
-  public void isEmptySquare() { //can we place here? to avoid overlaps
-  
-    if (score[row][col] == 0) {
-      
-      if (player1turn) { //if we can place here, define the array place as a "1", switch turns, place image.
-        image(pinkBow, (mouseX/150)*150 + 75, (mouseY/150)*150 + 75);
-         player1turn = false;
-         player2turn = true;
-         player1moves++;
-         println("player 2 turn");
-         
-         score[row][col] = 1;
-
-      }
-      
-      else if (player2turn) { //if we can place here, define the array place as a "4", switch turns, place image.
-        image(pinkHeart, (mouseX/150)*150 + 75, (mouseY/150)*150 + 75);
-        player1turn = true;
-        player2turn = false;
-        player2moves++;
-        println("player 1 turn");
+  public void isEmptySquare(int column) { //can we place here? to avoid overlaps
+    println(checkCol()); //this is updating
+    println(checkRow());
+    
+    for (int rIndex = gridHeight-1; rIndex >= 0; rIndex--) {
+      if (score[rIndex][column] == 0) {
         
-        score[row][col] = 4;
+        if (player1turn) { //if we can place here, define the array place as a "1", switch turns, place image.
+              println("new" + checkCol()); //this is updating
+              println(rIndex);
+          
+          image(cherryberries, checkCol() * 135 + 25, rIndex * 135 + 120);
+       
+           player1turn = false;
+           player2turn = true;
+           player1moves++;
+           println("player 2 turn");
+          
+          score[rIndex][column] = 1;
+
+          break;
+        }
+        
+        else if (player2turn) { //if we can place here, define the array place as a "8", switch turns, place image.
+        
+          image(pixelberries, checkCol() * 135 + 25, rIndex * 135 + 120); //row is basically y while col is x 
+          
+           player1turn = true;
+           player2turn = false;
+           player2moves++;
+           println("player 1 turn");
+          
+          score[rIndex][column] = 8;
+
+          break;
+        }
       }
     }
   }
   
+  /*
   public void checkAll() { //loops through all parts then calls isWinner 
     //rows
     for (int row = 0; row < score.length; row++) { //iterates through all rows, adding each up
@@ -96,12 +112,12 @@ class Score { // scoring class, array. prints to console to check for errors
       tieGame();
     }
   }
-  
+  */
   public void isWinner() { //adds up parts of the loops
-    if (total == 3) { //for 1 + 1 + 1 = 3 
+    if (total == 4) { //for 1 + 1 + 1 + 1 = 4
       player1Wins();
       
-    } else if (total == 12) { //for 4 + 4 + 4 = 12
+    } else if (total == 32) { //for 8 + 8 + 8 + 8 = 32
       player2Wins();
     }
   }
@@ -139,13 +155,3 @@ class Score { // scoring class, array. prints to console to check for errors
 
 
 //quick drafting notes 
-
-//check if there is a 0 in the array, is it empty?
-
-//loop for row, loop for column. if the total of a row or column = a certain number, win condition
-// make like 1 and 5, if we get 15 or 3, then we are a winner. diffrentiate by a lot, like no possible factors.
-
-//diagonals: 00, 11, 22
-//hard: 02, 11, 20
-
-//algebra equation for the diagonals?
