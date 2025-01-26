@@ -81,6 +81,7 @@ class Score { // scoring class, array. prints to console to check for errors
       }
     }
     
+    //columns
     for (int cIndex = 0; cIndex < gridWidth; cIndex++) {
       for (int rIndex = 0; rIndex < gridHeight-3; rIndex++) {
         total = 0;
@@ -91,38 +92,32 @@ class Score { // scoring class, array. prints to console to check for errors
       }
     }
     
-    /*
-     //columns
-     for (int col = 0; col < score[0].length; col++) { //iterates through all columns, adding each up
-      total = 0; //reset between columns
-      for (int row = 0; row < score.length; row++) {
-        total += score[row][col];
-        isWinner(); 
+    
+    for (int cIndex = 0; cIndex < gridWidth-3; cIndex++) {
+      for (int rIndex = 3; rIndex < gridHeight; rIndex++) {
+        total = 0;
+        for (int fourIndex = 0; fourIndex < 4; fourIndex++) {  
+          total += score[rIndex - fourIndex][cIndex + fourIndex];
+          isWinner();
+        }
       }
     }
     
-    //diagonal: RIGHT TO LEFT
-    total = 0;
-    for (int row = 0; row < score.length; row++) {
-      col = (score.length - 1) - row; //score.length-1 (2, as its 0-2 for each), then subtract the row for a backwards diagonal
-      total += score[row][col]; //add to the 
+    for (int cIndex = 0; cIndex < gridWidth-3; cIndex++) {
+      for (int rIndex = 0; rIndex < gridHeight-3; rIndex++) {
+        total = 0;
+        for (int fourIndex = 0; fourIndex < 4; fourIndex++) {  
+          total += score[rIndex + fourIndex][cIndex + fourIndex];
+          isWinner();
+        }
+      }
     }
-    isWinner(); //called after the loop as it only runs once
-    
-    
-    //diagonal: LEFT TO RIGHT
-    total = 0;
-    for (int row = 0; row < score.length; row++) {
-      total += score[row][row]; //both are row, as the two numbers are equal for a forward diagonal (left to right)
-    }
-    isWinner(); //called after the loop as it only runs once
-    
+
     if (player1moves + player2moves == 42) { //after checking all of the above, if there were 9 moves and no result then we tie
       tieGame();
     }
   }
-  */
-}
+
 
 
   public void isWinner() { //adds up parts of the loops
@@ -137,14 +132,14 @@ class Score { // scoring class, array. prints to console to check for errors
   
   
   public void player1Wins() { //spawn the image for a p1win, play again function
-    println("player 1 (bows) wins!");
+    println("player 1 (cherry) wins!");
     image(p1win, 200, 225);
     player1totalWon++;
     playAgain();
   }
   
   public void player2Wins() { //spawn the image for a p2win, play again function
-    println("player 2 (hearts) wins!");
+    println("player 2 (glow) wins!");
     image(p2win, 200, 225);
     player2totalWon++;
     playAgain();
