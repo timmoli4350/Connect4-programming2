@@ -40,8 +40,8 @@ class Grid {   //contains the setup for the UI and the grid
     
     fill(#FADADD); //part of the resets for text
     stroke(#FADADD);
-    rect(1000, 100, 200, 400);
-    rect(1000, 700, 200, 200);
+    rect(1000, 100, 500, 400);
+    rect(1000, 700, 400, 200);
     
     fill(#FFFFFF); //total won counter for p1
     textSize(30);
