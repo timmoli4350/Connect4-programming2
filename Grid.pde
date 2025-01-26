@@ -1,3 +1,5 @@
+//Olivia Timmermann
+
 class Grid {   //contains the setup for the UI and the grid      
 
   Grid(int tWidth, int tHeight) { //constructor
@@ -43,14 +45,14 @@ class Grid {   //contains the setup for the UI and the grid
     
     fill(#FFFFFF); //total won counter for p1
     textSize(30);
-    text("Player 1 (bows)", 1000, 100);
+    text("Player 1 (cherries)", 1000, 100);
     text("Games won:", 1010, 130);
     textSize(40);
     text(player1totalWon, 1070, 175);
     
     fill(#FFFFFF); //total won counter for p2
     textSize(30);
-    text("Player 2 (hearts)", 1000, 300);
+    text("Player 2 (glowberries)", 1000, 300);
     text("Games won:", 1010, 330);
     textSize(40);
     text(player2totalWon, 1070, 375);
