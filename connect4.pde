@@ -1,9 +1,9 @@
 // Olivia Timmermann
 // Programming II (Wolfe)
 // A connect-4 game. 
-// themed hearts and bows! 
+// themed berries! 
 
-int player1moves = 0; //number of turns, used to check for a total of 9 (tie)
+int player1moves = 0; //number of turns, used to check for a total of 42 (tie)
 int player2moves = 0;
 
 int player1totalWon = 0; //counter of times each player has won
@@ -16,11 +16,11 @@ boolean gameCurrently = false;
 
   int gridHeight = 6; //these variables can be changed to have 
   int gridWidth = 7; //different sized grids
-  int gridHeightPoints = 800;
-  int gridWidthPoints = 950;
+  int gridHeightPoints = 810; //135 x 135 squares
+  int gridWidthPoints = 945;
 
-PImage pinkBow; //define all images
-PImage pinkHeart;
+PImage cherryberries; //define all images
+PImage pixelberries;
 PImage p1win;
 PImage p2win;
 PImage tieGame;
@@ -30,16 +30,16 @@ Grid grid; //instantiate the grid, score classes
 Score score;
 
 void setup() {
-  pinkBow = loadImage("pinkribbon.png");
-  pinkHeart = loadImage("pinkcakeheart.png");
+  cherryberries = loadImage("cherryberries.png");
+  pixelberries = loadImage("pixelberries.png");
   p1win = loadImage("p1win.png");
   p2win = loadImage("p2win.png");
   tieGame = loadImage("tiegame.png");
   
   textFont = createFont("Perpetua", 60); //create a new font
   
-  pinkBow.resize(100, 100); //resize the markers
-  pinkHeart.resize(100, 100);
+  cherryberries.resize(100, 100); //resize the markers
+  pixelberries.resize(100, 100);
   
   size(1300, 950); //setup the window
   background(#FADADD);
@@ -51,7 +51,7 @@ void setup() {
   grid.uiSetup(); //UI setup
   
   score = new Score(); //
-  //score.scoreReset(); //resets the score at the end of each 
+  score.scoreReset(); //resets the score at the end of each 
 }
 
 void draw() { //nessecary for mousePressed to run
@@ -66,23 +66,15 @@ public void mousePressed() { //all functions that require mouse clicking
       stroke(#FFFFFF);
       rect(1000, 550, 200, 100); //start button
       if (player1turn) { //prints the output of our earlier randomizer
-        text("Player 1 (bows)", 1010, 780);
+        text("Player 1 (cherries)", 1010, 780);
       } else if (player2turn) {
-        text("Player 2 (hearts)", 1010, 780);
+        text("Player 2 (glowberries)", 1010, 780);
       }
       gameCurrently = true; //allows players to place on board
     }
     
     if (mouseX < gridWidthPoints && mouseY < 150 && gameCurrently) { //checks if there is a current game, and if it is within the board
-      
-      if (player1turn){
-        println("yes");
-        score.playGame(); //whoever's turn -> adding to our total
-      }
-      else if (player2turn) {
-        println("no");
-        //score.playGame();
-      }
+        score.playGame();
     }
   }
 
