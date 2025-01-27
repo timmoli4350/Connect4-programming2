@@ -71,7 +71,7 @@ class Score { // scoring class, array. prints to console to check for errors
   
   public void checkAll() { //loops through all parts then calls isWinner 
     //rows
-    for (int cIndex = 0; cIndex < gridWidth - 4; cIndex++) {
+    for (int cIndex = 0; cIndex < gridWidth - 3; cIndex++) {
       for (int rIndex = 0; rIndex < gridHeight; rIndex++) {
         total = 0;
         for (int fourIndex = 0; fourIndex < 4; fourIndex++) {  
